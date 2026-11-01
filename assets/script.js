@@ -65,6 +65,7 @@ if (copyBtn) {
     }
   });
 }
+window.showToast = showToast;
 function showToast(msg) {
   if (!toast) return;
   toast.textContent = msg;

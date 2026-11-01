@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weather Dashboard — Your Name</title>
+  <meta name="description" content="A live weather dashboard with search and a 7-day forecast.">
+  <meta name="theme-color" content="#0b0d12">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%237c9cff'/><text x='50' y='68' font-size='56' font-family='sans-serif' font-weight='700' text-anchor='middle' fill='%230b0d12'>Y</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/styles.css">
+  <link rel="stylesheet" href="../demo.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="container nav" aria-label="Main">
+      <a href="../../" class="logo">Your Name<span>.</span></a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="../../">Home</a></li>
+        <li><a href="../../projects.html" aria-current="page">Projects</a></li>
+        <li><a href="../../#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="demo-hero">
+      <div class="container">
+        <a href="../../projects.html" class="back-link reveal">← All projects</a>
+        <h1 class="reveal" style="--delay:60ms">Weather Dashboard</h1>
+        <p class="reveal" style="--delay:120ms">Search any city (or use your location) to see the current weather and a 7-day forecast. Live data comes from the free Open-Meteo API, and your last forecast is saved so it still shows when you're offline.</p>
+        <ul class="tags reveal" style="--delay:180ms"><li>JavaScript</li><li>Fetch API</li><li>Open-Meteo</li><li>localStorage</li></ul>
+      </div>
+    </section>
+
+    <section class="demo-section">
+      <div class="container">
+        <div class="panel reveal">
+          <form class="row" id="search-form" autocomplete="off">
+            <div class="grow" style="position:relative">
+              <label for="city" class="sr-only">City</label>
+              <input id="city" class="input" type="search" placeholder="Search for a city…" required>
+              <ul id="suggestions" class="suggestions" role="listbox" hidden></ul>
+            </div>
+            <button class="btn btn-primary" type="submit">Search</button>
+            <button class="btn" type="button" id="locate">📍 My location</button>
+          </form>
+        </div>
+
+        <div id="weather" class="weather" aria-live="polite"></div>
+
+        <style>
+          .sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+          .suggestions { position:absolute; z-index:5; left:0; right:0; top:calc(100% + 6px); margin:0; padding:6px; list-style:none;
+            background:var(--bg-elev); border:1px solid var(--border); border-radius:12px; box-shadow:0 20px 40px -12px rgba(0,0,0,.7); }
+          .suggestions li { padding:10px 12px; border-radius:8px; cursor:pointer; }
+          .suggestions li:hover, .suggestions li.active { background:var(--surface); }
+          .suggestions small { color:var(--muted); }
+          .weather { margin-top:20px; }
+          .now { display:grid; grid-template-columns:auto 1fr; gap:8px 24px; align-items:center; }
+          .now .big-icon { font-size:clamp(4rem,14vw,6rem); line-height:1; grid-row:span 2; }
+          .now .temp { font-size:clamp(2.8rem,10vw,4.2rem); font-weight:800; letter-spacing:-.04em; line-height:1; }
+          .now .place { color:var(--muted); }
+          .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:12px; margin-top:22px; }
+          .stat { background:var(--bg-elev); border:1px solid var(--border); border-radius:12px; padding:12px 14px; }
+          .stat span { display:block; color:var(--muted); font-size:.82rem; }
+          .stat strong { font-size:1.15rem; }
+          .days { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:10px; }
+          .day { text-align:center; background:var(--bg-elev); border:1px solid var(--border); border-radius:12px; padding:14px 6px; }
+          .day .d { color:var(--muted); font-size:.85rem; }
+          .day .i { font-size:1.8rem; margin:6px 0; }
+          .day .hi { font-weight:700; }
+          .day .lo { color:var(--muted); font-size:.9rem; }
+          @media (max-width:640px) {
+            .days { grid-template-columns:1fr; gap:8px; }
+            .day { display:grid; grid-template-columns:1fr auto auto auto; gap:12px; align-items:center; text-align:left; padding:10px 14px; }
+            .day .i { margin:0; font-size:1.4rem; }
+          }
+        </style>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>© <span data-year>2026</span> Your Name</span>
+      <a href="https://github.com/MathJR06/Heeeheee/tree/main/demos/weather">View the source code on GitHub</a>
+    </div>
+  </footer>
+
+  <div class="toast" role="status" aria-live="polite"></div>
+  <script src="../../assets/script.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>

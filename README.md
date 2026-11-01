@@ -10,6 +10,7 @@ A small, dark, mobile-friendly personal site built with plain HTML, CSS and Java
 | `projects.html` | Project cards |
 | `assets/styles.css` | All styling. Colours live at the top in `:root` |
 | `assets/script.js` | Mobile menu, scroll-in animations, card glow, copy-email button |
+| `demos/` | Working project demos, one folder each: `weather`, `palette`, `notes`, `bot`, `habits`. Shared demo styles are in `demos/demo.css` |
 | `404.html` | Shown by GitHub Pages for missing pages |
 | `.nojekyll` | Tells GitHub Pages to serve files as-is |
 
@@ -20,7 +21,9 @@ Search and replace these placeholders:
 - `Your Name`, `Your City`
 - `you@example.com`
 - the LinkedIn link (`https://www.linkedin.com/`) and the GitHub link
-- the project cards in `projects.html` (title, description, tags, and the `href`s of "Live demo" / "Code")
+- the project cards in `projects.html`, if you want to change or remove a project
+
+The demos run entirely in the browser, so no server or API keys are needed. The weather demo uses the free [Open-Meteo](https://open-meteo.com/) API, and its default city is set at the bottom of `demos/weather/app.js`. The "Code" links point at the `main` branch, so publish from `main` (or update the links).
 
 ## Preview locally
 

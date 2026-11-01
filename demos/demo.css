@@ -1,0 +1,77 @@
+/* Shared styles for the project demo pages */
+.demo-hero { padding: clamp(40px, 8vh, 80px) 0 24px; }
+.demo-hero h1 { font-size: clamp(2rem, 6vw, 3.2rem); font-weight: 800; margin: 14px 0 12px; }
+.demo-hero p { color: var(--muted); max-width: 40rem; margin: 0 0 18px; font-size: 1.1rem; }
+.back-link { color: var(--muted); font-size: .95rem; }
+.back-link:hover { color: var(--text); }
+
+.demo-section { padding: 8px 0 clamp(56px, 10vh, 96px); }
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: clamp(18px, 3vw, 28px);
+}
+.panel + .panel { margin-top: 20px; }
+.panel h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 14px; }
+
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.row > .grow { flex: 1 1 200px; }
+
+.input, .textarea, select.input {
+  width: 100%;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 11px 14px;
+  transition: border-color .2s, box-shadow .2s;
+}
+.input:focus, .textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(124, 156, 255, .2);
+}
+.textarea { resize: vertical; min-height: 320px; line-height: 1.6; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .95rem; }
+
+.btn-sm { padding: 8px 14px; font-size: .88rem; }
+.btn-ghost { background: transparent; }
+.btn[disabled] { opacity: .5; cursor: not-allowed; transform: none; }
+
+.muted { color: var(--muted); }
+.small { font-size: .88rem; }
+.empty { color: var(--muted); text-align: center; padding: 32px 12px; }
+
+.spinner {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 3px solid var(--border); border-top-color: var(--accent);
+  animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.fade-in { animation: fadeIn .45s var(--ease) both; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } }
+
+kbd {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: .8rem;
+  padding: 2px 7px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+}
+
+.icon-btn {
+  display: inline-grid; place-items: center;
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+  color: var(--muted);
+  cursor: pointer;
+  transition: color .2s, border-color .2s;
+}
+.icon-btn:hover { color: var(--text); border-color: #34394c; }
