@@ -14,14 +14,9 @@ A small, dark, mobile-friendly personal site built with plain HTML, CSS and Java
 | `404.html` | Shown by GitHub Pages for missing pages |
 | `.nojekyll` | Tells GitHub Pages to serve files as-is |
 
-## Make it yours
+## Editing
 
-Search and replace these placeholders:
-
-- `Your Name`, `Your City`
-- `you@example.com`
-- the LinkedIn link (`https://www.linkedin.com/`) and the GitHub link
-- the project cards in `projects.html`, if you want to change or remove a project
+All the text is plain HTML in `index.html` and `projects.html`. Colours are set at the top of `assets/styles.css`.
 
 The demos run entirely in the browser, so no server or API keys are needed. The weather demo uses the free [Open-Meteo](https://open-meteo.com/) API, and its default city is set at the bottom of `demos/weather/app.js`. The "Code" links point at the `main` branch, so publish from `main` (or update the links).
 
