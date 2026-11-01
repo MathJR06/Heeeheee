@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects — Your Name</title>
+  <meta name="description" content="A selection of projects by Your Name.">
+  <meta name="theme-color" content="#0b0d12">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%237c9cff'/><text x='50' y='68' font-size='56' font-family='sans-serif' font-weight='700' text-anchor='middle' fill='%230b0d12'>Y</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="container nav" aria-label="Main">
+      <a href="./" class="logo">Your Name<span>.</span></a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="./">Home</a></li>
+        <li><a href="projects.html" aria-current="page">Projects</a></li>
+        <li><a href="./#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1 class="reveal">Projects</h1>
+        <p class="reveal" style="--delay:80ms">A few things I've built recently. Each card links to a live demo or the source code.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cards">
+        <article class="card reveal" style="--delay:0ms">
+          <div class="card-icon" aria-hidden="true">⚡</div>
+          <h3>Weather Dashboard</h3>
+          <p>A fast, minimal weather app with a 7-day forecast, location search and offline support.</p>
+          <ul class="tags"><li>JavaScript</li><li>API</li><li>PWA</li></ul>
+          <div class="card-links"><a href="#">Live demo →</a><a href="https://github.com/MathJR06">Code →</a></div>
+        </article>
+        <article class="card reveal" style="--delay:80ms">
+          <div class="card-icon" aria-hidden="true">🎨</div>
+          <h3>Palette Studio</h3>
+          <p>Generate, tweak and export accessible colour palettes with live contrast checks.</p>
+          <ul class="tags"><li>React</li><li>CSS</li></ul>
+          <div class="card-links"><a href="#">Live demo →</a><a href="https://github.com/MathJR06">Code →</a></div>
+        </article>
+        <article class="card reveal" style="--delay:160ms">
+          <div class="card-icon" aria-hidden="true">📝</div>
+          <h3>Markdown Notes</h3>
+          <p>A distraction-free note-taking app that saves to the browser and syncs across tabs.</p>
+          <ul class="tags"><li>TypeScript</li><li>IndexedDB</li></ul>
+          <div class="card-links"><a href="#">Live demo →</a><a href="https://github.com/MathJR06">Code →</a></div>
+        </article>
+        <article class="card reveal" style="--delay:0ms">
+          <div class="card-icon" aria-hidden="true">🤖</div>
+          <h3>Discord Helper Bot</h3>
+          <p>A small bot that handles reminders, polls and server stats for a community of 500+.</p>
+          <ul class="tags"><li>Node.js</li><li>Discord API</li></ul>
+          <div class="card-links"><a href="#">Live demo →</a><a href="https://github.com/MathJR06">Code →</a></div>
+        </article>
+        <article class="card reveal" style="--delay:80ms">
+          <div class="card-icon" aria-hidden="true">📊</div>
+          <h3>Habit Tracker</h3>
+          <p>Track daily habits with streaks and simple charts. Built to learn data visualisation.</p>
+          <ul class="tags"><li>Python</li><li>Flask</li><li>Chart.js</li></ul>
+          <div class="card-links"><a href="#">Live demo →</a><a href="https://github.com/MathJR06">Code →</a></div>
+        </article>
+        <article class="card reveal" style="--delay:160ms">
+          <div class="card-icon" aria-hidden="true">🌐</div>
+          <h3>This Website</h3>
+          <p>The site you're looking at — plain HTML, CSS and a pinch of JavaScript, hosted free on GitHub Pages.</p>
+          <ul class="tags"><li>HTML</li><li>CSS</li><li>GitHub Pages</li></ul>
+          <div class="card-links"><a href="#">Live demo →</a><a href="https://github.com/MathJR06">Code →</a></div>
+        </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="contact-box reveal">
+          <h2>Like what you see?</h2>
+          <p>I'm always up for a chat about new ideas and collaborations.</p>
+          <div class="actions"><a href="./#contact" class="btn btn-primary">Get in touch <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>© <span data-year>2026</span> Your Name</span>
+      <a href="https://github.com/MathJR06">Built with plain HTML &amp; CSS · hosted on GitHub Pages</a>
+    </div>
+  </footer>
+
+  <div class="toast" role="status" aria-live="polite"></div>
+  <script src="assets/script.js" defer></script>
+</body>
+</html>
