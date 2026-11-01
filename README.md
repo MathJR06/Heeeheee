@@ -10,7 +10,8 @@ A small, dark, mobile-friendly personal site built with plain HTML, CSS and Java
 | `projects.html` | Project cards |
 | `assets/styles.css` | All styling. Colours live at the top in `:root` |
 | `assets/script.js` | Mobile menu, scroll-in animations, card glow, copy-email button |
-| `demos/` | Working project demos, one folder each: `weather`, `palette`, `notes`, `bot`, `habits`. Shared demo styles are in `demos/demo.css` |
+| `demos/` | The projects, one folder each (`weather`, `palette`, `notes`, `bot`, `habits`), each with its own `index.html`, `style.css` and `app.js`. Shared styles are in `demos/demo.css` |
+| `assets/previews/` | Screenshots used on the project cards |
 | `404.html` | Shown by GitHub Pages for missing pages |
 | `.nojekyll` | Tells GitHub Pages to serve files as-is |
 

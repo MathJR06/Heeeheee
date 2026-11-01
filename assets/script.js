@@ -43,7 +43,7 @@ if ("IntersectionObserver" in window) {
 }
 
 // --- Cursor-following glow on cards ---
-document.querySelectorAll(".card").forEach((card) => {
+document.querySelectorAll(".card, .project").forEach((card) => {
   card.addEventListener("pointermove", (e) => {
     const r = card.getBoundingClientRect();
     card.style.setProperty("--mx", `${e.clientX - r.left}px`);

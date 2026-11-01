@@ -256,59 +256,108 @@ h1, h2, h3 { line-height: 1.15; letter-spacing: -.025em; margin: 0; }
 }
 
 /* ==========================================================
-   Cards
+   Project cards
    ========================================================== */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-  gap: 20px;
-}
+.projects { display:grid; grid-template-columns:repeat(2, 1fr); gap:24px; }
+.projects-3 { grid-template-columns:repeat(3, 1fr); }
+.projects-3 .project-body p, .projects-3 .code-link { display:none; }
 
-.card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding: 26px;
-  border-radius: var(--radius);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  overflow: hidden;
-  transition: transform .35s var(--ease), border-color .35s, box-shadow .35s;
+.project {
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  border-radius:calc(var(--radius) + 6px);
+  background:var(--surface);
+  border:1px solid var(--border);
+  overflow:hidden;
+  transition:transform .4s var(--ease), border-color .4s, box-shadow .4s;
 }
 /* Glow that follows the cursor (position set by script.js) */
-.card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(400px circle at var(--mx, 50%) var(--my, 0%), rgba(124, 156, 255, .12), transparent 40%);
-  opacity: 0;
-  transition: opacity .35s;
-  pointer-events: none;
+.project::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:radial-gradient(500px circle at var(--mx, 50%) var(--my, 0%), rgba(124, 156, 255, .10), transparent 40%);
+  opacity:0;
+  transition:opacity .4s;
+  pointer-events:none;
 }
-.card:hover {
-  transform: translateY(-4px);
-  border-color: #313750;
-  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, .6);
+.project:hover {
+  transform:translateY(-6px);
+  border-color:#313750;
+  box-shadow:0 30px 60px -30px rgba(0, 0, 0, .9), 0 0 0 1px rgba(124, 156, 255, .08);
 }
-.card:hover::before { opacity: 1; }
+.project:hover::before { opacity:1; }
 
-.card-icon {
-  width: 44px;
-  height: 44px;
-  display: grid;
-  place-items: center;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(124, 156, 255, .18), rgba(180, 140, 255, .18));
-  color: var(--accent);
-  margin-bottom: 18px;
-  font-size: 1.3rem;
+.shot {
+  position:relative;
+  display:block;
+  aspect-ratio:16 / 10;
+  overflow:hidden;
+  background:var(--bg-elev);
+  border-bottom:1px solid var(--border);
 }
-.card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
-.card p { color: var(--muted); margin: 0 0 18px; font-size: .97rem; flex: 1; }
-.card .tags li { font-size: .78rem; padding: 4px 10px; background: var(--bg-elev); }
-.card-links { display: flex; gap: 16px; margin-top: 18px; font-size: .9rem; font-weight: 600; }
-.card-links a { color: var(--accent); display: inline-flex; align-items: center; gap: 4px; }
-.card-links a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.shot img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:top center;
+  transition:transform .8s var(--ease), filter .5s;
+}
+.shot::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top, rgba(11, 13, 18, .55), transparent 45%);
+  opacity:.6;
+  transition:opacity .4s;
+}
+.project:hover .shot img { transform:scale(1.045); }
+.project:hover .shot::after { opacity:1; }
+.shot .open {
+  position:absolute;
+  z-index:2;
+  right:16px;
+  bottom:16px;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:9px 16px;
+  border-radius:999px;
+  background:rgba(255, 255, 255, .92);
+  color:#0b0d12;
+  font-weight:700;
+  font-size:.88rem;
+  opacity:0;
+  transform:translateY(8px);
+  transition:opacity .35s, transform .35s var(--ease);
+}
+.shot .open svg { width:16px; height:16px; }
+.project:hover .shot .open, .shot:focus-visible .open { opacity:1; transform:none; }
+
+.project-body { position:relative; z-index:2; display:flex; flex-direction:column; flex:1; padding:22px 24px 22px; }
+.project-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:8px; }
+.project h3 { font-size:1.3rem; font-weight:750; }
+.project h3 a:hover { color:var(--accent); }
+.kicker {
+  flex-shrink:0;
+  font-size:.72rem;
+  font-weight:700;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--accent);
+  padding:4px 10px;
+  border-radius:999px;
+  background:rgba(124, 156, 255, .1);
+}
+.project p { color:var(--muted); margin:0 0 18px; font-size:.97rem; }
+.project-foot { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:auto; }
+.project .tags li { font-size:.78rem; padding:4px 10px; background:var(--bg-elev); }
+.code-link { flex-shrink:0; color:var(--muted); font-weight:600; font-size:.9rem; transition:color .2s; }
+.code-link:hover { color:var(--text); }
+
+.section-head-row { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; flex-wrap:wrap; }
 
 /* ==========================================================
    Contact
@@ -390,6 +439,11 @@ h1, h2, h3 { line-height: 1.15; letter-spacing: -.025em; margin: 0; }
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
+@media (max-width: 1000px) and (min-width: 761px) {
+  .projects-3 { grid-template-columns: repeat(2, 1fr); }
+  .projects-3 .project:last-child { display: none; }
+}
+
 /* ==========================================================
    Phones & tablets
    ========================================================== */
@@ -417,6 +471,9 @@ h1, h2, h3 { line-height: 1.15; letter-spacing: -.025em; margin: 0; }
   .nav-links a { padding: 12px 14px; font-size: 1rem; }
 
   .about-grid { grid-template-columns: 1fr; gap: 24px; }
+  .projects, .projects-3 { grid-template-columns: 1fr; gap: 18px; }
+  .project-body { padding: 18px; }
+  .shot .open { opacity: 1; transform: none; padding: 7px 13px; font-size: .82rem; }
   .actions .btn { flex: 1 1 auto; justify-content: center; }
   .site-footer .container { flex-direction: column; text-align: center; align-items: center; }
 }

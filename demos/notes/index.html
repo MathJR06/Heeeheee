@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Markdown Notes — Marocius</title>
-  <meta name="description" content="A distraction-free Markdown note-taking app.">
+  <meta name="description" content="A beautiful, private Markdown notes app that runs in your browser.">
   <meta name="theme-color" content="#0b0d12">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%237c9cff'/><text x='50' y='68' font-size='56' font-family='sans-serif' font-weight='700' text-anchor='middle' fill='%230b0d12'>M</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/styles.css">
   <link rel="stylesheet" href="../demo.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="site-header">
@@ -33,77 +34,69 @@
       <div class="container">
         <a href="../../projects.html" class="back-link reveal">← All projects</a>
         <h1 class="reveal" style="--delay:60ms">Markdown Notes</h1>
-        <p class="reveal" style="--delay:120ms">A simple note-taking app with live Markdown preview. Notes are saved automatically in your browser and stay in sync if you have the page open in more than one tab. Nothing is ever sent to a server.</p>
-        <ul class="tags reveal" style="--delay:180ms"><li>JavaScript</li><li>Markdown parser</li><li>localStorage</li></ul>
+        <p class="reveal" style="--delay:120ms">A calm, private place to write. Format with the toolbar or plain Markdown, pin and colour-code your notes, and tick off checklists right in the preview. Everything saves automatically in your browser and syncs between tabs.</p>
+        <ul class="tags reveal" style="--delay:180ms"><li>JavaScript</li><li>Markdown parser</li><li>localStorage</li><li>Cross-tab sync</li></ul>
       </div>
     </section>
 
     <section class="demo-section">
       <div class="container">
-        <div class="notes-app reveal">
-          <aside class="panel notes-list">
-            <div class="row" style="justify-content:space-between;margin-bottom:12px">
-              <h2 style="margin:0">Notes</h2>
-              <button class="btn btn-sm btn-primary" id="new-note">+ New</button>
+        <div class="notes-app reveal" id="app">
+          <aside class="sidebar">
+            <div class="side-head">
+              <div class="search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                <input class="input" id="filter" type="search" placeholder="Search notes" aria-label="Search notes">
+              </div>
+              <button class="btn btn-primary new-btn" id="new-note" title="New note (Alt+N)" aria-label="New note">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
             </div>
-            <input class="input" id="filter" type="search" placeholder="Search notes…" aria-label="Search notes">
-            <ul id="list" class="list"></ul>
+            <div class="list" id="list"></div>
           </aside>
 
-          <section class="panel editor">
-            <div class="row editor-bar">
-              <input class="input grow title-input" id="title" placeholder="Untitled" aria-label="Note title">
-              <div class="tabs" role="tablist">
-                <button class="btn btn-sm" data-view="write" role="tab">Write</button>
-                <button class="btn btn-sm" data-view="preview" role="tab">Preview</button>
-                <button class="btn btn-sm hide-mobile" data-view="split" role="tab">Split</button>
+          <section class="editor">
+            <div class="ed-top">
+              <input class="title-input" id="title" placeholder="Untitled" aria-label="Note title">
+            </div>
+            <div class="ed-sub">
+              <div class="meta" id="meta"></div>
+              <div class="ed-actions">
+                <button class="icon-btn" id="pin" title="Pin note" aria-label="Pin note"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M9 4h6l-1 5 4 4H6l4-4-1-5zM12 13v7"/></svg></button>
+                <div class="colors" id="colors" role="radiogroup" aria-label="Note colour"></div>
+                <button class="icon-btn" id="download" title="Download as .md" aria-label="Download note"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></button>
+                <button class="icon-btn" id="focus" title="Focus mode" aria-label="Focus mode"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+                <button class="icon-btn danger" id="delete" title="Delete note" aria-label="Delete note"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
               </div>
-              <button class="icon-btn" id="delete" title="Delete note" aria-label="Delete note">🗑</button>
+            </div>
+            <div class="ed-bar">
+              <div class="fmt" id="fmt" role="toolbar" aria-label="Formatting">
+                <button data-fmt="bold" title="Bold (Ctrl+B)"><b>B</b></button>
+                <button data-fmt="italic" title="Italic (Ctrl+I)"><i>I</i></button>
+                <button data-fmt="strike" title="Strikethrough"><s>S</s></button>
+                <span class="sep"></span>
+                <button data-fmt="h1" title="Heading">H1</button>
+                <button data-fmt="h2" title="Subheading">H2</button>
+                <span class="sep"></span>
+                <button data-fmt="ul" title="Bullet list"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1" fill="currentColor"/><circle cx="4.5" cy="12" r="1" fill="currentColor"/><circle cx="4.5" cy="18" r="1" fill="currentColor"/></svg></button>
+                <button data-fmt="task" title="Checklist"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="7" rx="1.5"/><path d="m4.8 7.6 1.4 1.3 2.3-2.6M14 7.5h7M3 15.5h7v5H3zM14 18h7"/></svg></button>
+                <button data-fmt="quote" title="Quote"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 7h4v4c0 3-1.5 5-4 6l-.7-1.2C7.8 15 8.4 14 8.5 12H7zm8 0h4v4c0 3-1.5 5-4 6l-.7-1.2c1.5-.8 2.1-1.8 2.2-3.8H15z"/></svg></button>
+                <button data-fmt="code" title="Code"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></svg></button>
+                <button data-fmt="link" title="Link (Ctrl+K)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></button>
+              </div>
+              <div class="views" role="tablist">
+                <button data-view="write" role="tab">Write</button>
+                <button data-view="split" role="tab" class="hide-mobile">Split</button>
+                <button data-view="preview" role="tab">Read</button>
+              </div>
             </div>
             <div class="panes" id="panes">
-              <textarea class="textarea" id="body" placeholder="Write in **Markdown**…" aria-label="Note body"></textarea>
+              <textarea id="body" spellcheck="true" placeholder="Start writing… Markdown works here." aria-label="Note body"></textarea>
               <article class="preview md" id="preview"></article>
             </div>
-            <p class="muted small" id="status" style="margin:10px 0 0">Saved in this browser</p>
+            <div class="status"><span class="dot"></span><span id="status">Saved in this browser</span></div>
           </section>
         </div>
-
-        <style>
-          .notes-app { display:grid; grid-template-columns:280px 1fr; gap:20px; align-items:start; }
-          .notes-app > *, .panes > * { min-width:0; }
-          .notes-list .input { margin-bottom:10px; }
-          .list { list-style:none; margin:0; padding:0; max-height:520px; overflow:auto; }
-          .list li { padding:10px 12px; border-radius:10px; cursor:pointer; border:1px solid transparent; transition:background .2s; }
-          .list li:hover { background:var(--bg-elev); }
-          .list li.active { background:var(--bg-elev); border-color:var(--border); }
-          .list strong { display:block; font-size:.95rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-          .list span { color:var(--muted); font-size:.8rem; }
-          .editor-bar { margin-bottom:14px; }
-          .title-input { font-weight:700; font-size:1.1rem; }
-          .tabs { display:flex; gap:6px; }
-          .tabs .btn[aria-selected="true"] { border-color:var(--accent); color:var(--accent); }
-          .panes { display:grid; gap:16px; }
-          .panes.split { grid-template-columns:1fr 1fr; }
-          .panes.write .preview, .panes.preview .textarea { display:none; }
-          .preview { min-height:320px; padding:4px 6px; overflow-wrap:anywhere; }
-          .md h1, .md h2, .md h3 { margin:1em 0 .4em; } .md h1 { font-size:1.7rem; } .md h2 { font-size:1.35rem; } .md h3 { font-size:1.1rem; }
-          .md > :first-child { margin-top:0; }
-          .md p, .md ul, .md ol, .md blockquote, .md pre { margin:0 0 .9em; }
-          .md a { color:var(--accent); text-decoration:underline; }
-          .md code { font-family:ui-monospace,Menlo,monospace; font-size:.88em; background:var(--bg-elev); padding:2px 6px; border-radius:6px; }
-          .md pre { background:var(--bg-elev); border:1px solid var(--border); border-radius:10px; padding:14px; overflow-x:auto; }
-          .md pre code { background:none; padding:0; }
-          .md blockquote { border-left:3px solid var(--accent); padding-left:14px; color:var(--muted); }
-          .md hr { border:0; border-top:1px solid var(--border); margin:1.4em 0; }
-          .md li.task { list-style:none; margin-left:-1.2em; }
-          @media (max-width:860px) {
-            .notes-app { grid-template-columns:1fr; }
-            .list { max-height:200px; }
-            .hide-mobile { display:none; }
-            .panes.split { grid-template-columns:1fr; }
-            .panes.split .preview { display:none; }
-          }
-        </style>
       </div>
     </section>
   </main>

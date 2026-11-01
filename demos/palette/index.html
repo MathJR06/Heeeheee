@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Palette Studio — Marocius</title>
-  <meta name="description" content="Generate accessible colour palettes with contrast checks.">
+  <meta name="description" content="Generate beautiful, accessible colour palettes and preview them live.">
   <meta name="theme-color" content="#0b0d12">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%237c9cff'/><text x='50' y='68' font-size='56' font-family='sans-serif' font-weight='700' text-anchor='middle' fill='%230b0d12'>M</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/styles.css">
   <link rel="stylesheet" href="../demo.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="site-header">
@@ -33,66 +34,63 @@
       <div class="container">
         <a href="../../projects.html" class="back-link reveal">← All projects</a>
         <h1 class="reveal" style="--delay:60ms">Palette Studio</h1>
-        <p class="reveal" style="--delay:120ms">Generate colour palettes from colour-theory rules, lock the colours you like, and see straight away whether text on each colour passes the WCAG contrast guidelines. Export as CSS variables or JSON, or share a link.</p>
-        <ul class="tags reveal" style="--delay:180ms"><li>JavaScript</li><li>Colour theory</li><li>WCAG contrast</li></ul>
+        <p class="reveal" style="--delay:120ms">Generate colour palettes from colour-theory rules, lock or fine-tune the colours you love, and see them straight away on a live page in dark and light mode. Every colour gets a name and an accessibility check.</p>
+        <ul class="tags reveal" style="--delay:180ms"><li>JavaScript</li><li>Colour theory</li><li>WCAG contrast</li><li>Canvas export</li></ul>
       </div>
     </section>
 
     <section class="demo-section">
       <div class="container">
-        <div class="panel reveal">
-          <div class="row" style="justify-content:space-between">
-            <div class="row">
-              <button class="btn btn-primary" id="generate">Generate</button>
-              <select class="input" id="mode" style="width:auto" aria-label="Harmony">
-                <option value="analogous">Analogous</option>
-                <option value="complementary">Complementary</option>
-                <option value="triadic">Triadic</option>
-                <option value="monochrome">Monochrome</option>
-                <option value="random">Random</option>
-              </select>
+        <div class="pal-toolbar reveal">
+          <div class="row">
+            <button class="btn btn-primary" id="generate">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.2" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.2" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.2" fill="currentColor"/><circle cx="8.5" cy="15.5" r="1.2" fill="currentColor"/></svg>
+              Generate
+            </button>
+            <div class="seg" id="modes" role="radiogroup" aria-label="Colour harmony">
+              <button role="radio" data-mode="analogous">Analogous</button>
+              <button role="radio" data-mode="complementary">Complementary</button>
+              <button role="radio" data-mode="triadic">Triadic</button>
+              <button role="radio" data-mode="monochrome">Mono</button>
+              <button role="radio" data-mode="pastel">Pastel</button>
             </div>
-            <span class="muted small hide-touch">Press <kbd>Space</kbd> to generate · click a colour to copy it</span>
+          </div>
+          <div class="row">
+            <span class="muted small hide-touch">Press <kbd>Space</kbd> to generate</span>
+            <button class="icon-btn" id="undo" title="Undo" aria-label="Undo"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
+            <button class="icon-btn" id="save" title="Save palette" aria-label="Save palette"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 21s-7.5-4.6-9.5-9.3C1 8.1 3.4 4.5 7 4.5c2 0 3.5 1.1 5 3 1.5-1.9 3-3 5-3 3.6 0 6 3.6 4.5 7.2C19.5 16.4 12 21 12 21z"/></svg></button>
           </div>
         </div>
 
-        <div class="swatches reveal" id="swatches" style="--delay:80ms"></div>
+        <div class="swatches reveal" id="swatches" style="--delay:60ms"></div>
 
-        <div class="panel reveal" style="--delay:120ms">
-          <div class="row" style="justify-content:space-between;margin-bottom:12px">
-            <h2 style="margin:0">Export</h2>
-            <div class="row">
-              <button class="btn btn-sm" data-format="css">CSS</button>
-              <button class="btn btn-sm" data-format="json">JSON</button>
-              <button class="btn btn-sm" data-format="url">Share link</button>
+        <section class="reveal" style="--delay:100ms">
+          <div class="sec-title"><h2>Live preview</h2><span class="muted small">Your palette, used on a real-looking page</span></div>
+          <div class="previews" id="previews"></div>
+        </section>
+
+        <div class="pal-bottom reveal" style="--delay:140ms">
+          <div class="panel">
+            <div class="row" style="justify-content:space-between;margin-bottom:14px">
+              <h2 style="margin:0">Export</h2>
+              <div class="seg small-seg" id="formats">
+                <button data-format="css">CSS</button>
+                <button data-format="tailwind">Tailwind</button>
+                <button data-format="json">JSON</button>
+              </div>
+            </div>
+            <pre id="export" class="export"></pre>
+            <div class="row" style="margin-top:12px">
+              <button class="btn btn-sm" id="copy-export">Copy code</button>
+              <button class="btn btn-sm" id="copy-link">Copy share link</button>
+              <button class="btn btn-sm" id="download">Download PNG</button>
             </div>
           </div>
-          <pre id="export" class="export"></pre>
+          <div class="panel">
+            <h2>Saved palettes</h2>
+            <ul class="saved" id="saved"></ul>
+          </div>
         </div>
-
-        <style>
-          .swatches { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin:20px 0; }
-          .swatch { position:relative; border-radius:var(--radius); min-height:300px; display:flex; flex-direction:column; justify-content:flex-end;
-            padding:16px; border:1px solid rgba(255,255,255,.06); cursor:pointer; transition:transform .3s var(--ease), background-color .5s var(--ease); }
-          .swatch:hover { transform:translateY(-3px); }
-          .swatch .hex { font-weight:800; font-size:1.15rem; letter-spacing:.02em; }
-          .swatch .meta { font-size:.8rem; opacity:.8; margin-top:2px; }
-          .swatch .badges { display:flex; gap:6px; margin-top:10px; flex-wrap:wrap; }
-          .badge { font-size:.72rem; font-weight:700; padding:3px 8px; border-radius:999px; background:rgba(0,0,0,.18); }
-          .badge.fail { opacity:.55; text-decoration:line-through; }
-          .lock { position:absolute; top:12px; right:12px; width:36px; height:36px; border-radius:10px; border:0;
-            background:rgba(0,0,0,.18); color:inherit; cursor:pointer; font-size:1rem; }
-          .swatch.locked .lock { background:rgba(0,0,0,.4); }
-          .export { margin:0; padding:16px; background:var(--bg-elev); border:1px solid var(--border); border-radius:12px;
-            font-size:.88rem; overflow-x:auto; white-space:pre; color:var(--muted); }
-          @media (max-width:760px) {
-            .swatches { grid-template-columns:1fr; gap:8px; }
-            .swatch { min-height:88px; flex-direction:row; align-items:center; justify-content:space-between; padding:14px 60px 14px 16px; }
-            .swatch .badges { margin:0; }
-            .lock { top:50%; transform:translateY(-50%); }
-          }
-          @media (hover:none) { .hide-touch { display:none; } }
-        </style>
       </div>
     </section>
   </main>
